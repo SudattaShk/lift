@@ -1,12 +1,16 @@
 using Npgsql;
+using System.Data;
 
 namespace lift
 {
     public partial class Form1 : Form
     {
         private string connstring = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};",
-            "localhost", 5432, "postgres", "123", "dbpostgre");
+            "localhost", 5432, "postgres", "123", "postgres");
         private NpgsqlConnection conn;
+        private string sql;
+        private NpgsqlCommand cmd;
+        private DataTable dt;
         public Form1()
         {
             InitializeComponent();
@@ -14,126 +18,153 @@ namespace lift
         private void Form1_Load(object sender, EventArgs e)
         {
             conn = new NpgsqlConnection(connstring);
-        }
-
-        private void timerup_Tick(object sender, EventArgs e)
-        {
-            lift.Location = new Point(lift.Location.X, lift.Location.Y - 5);
-            timerup.Enabled = true;
-
-            if (lift.Location.Y == 75)
-            {
-                timerup.Enabled = false;
-            }
+            databaseTable.Visible = true;
+            select_all();
         }
 
         private void buttonup_Click(object sender, EventArgs e)
         {
-            if (lift.Location.Y == 585 && First_Right_Door.Size.Width == 80 && First_Left_Door.Size.Width == 80 
+            if (lift.Location.Y == 585 && First_Right_Door.Size.Width == 80 && First_Left_Door.Size.Width == 80
                 && Ground_Right_Door.Size.Width == 80 && Ground_Left_Door.Size.Width == 80)
             {
-                timerup.Enabled = true;
+                TimerUp.Enabled = true;
+                ButtonDown.Enabled = false;
+                CloseButton.Enabled = false;
+                OpenButton.Enabled = false;
+
             }
             else
             {
-                timerup.Enabled = false;
+                TimerUp.Enabled = false;
             }
+
+            
+
+        }
+        private void TimerUp_Tick(object sender, EventArgs e)
+        {
+            DisplayMain.Image = Properties.Resources.display1;
+            SmallDisplay1.Image = Properties.Resources.display1;
+            SmallDisplay2.Image = Properties.Resources.display1;
+            lift.Location = new Point(lift.Location.X, lift.Location.Y - 5);
+            TimerUp.Enabled = true;
+
+
+
+                if (lift.Location.Y == 75)
+                {
+                    TimerUp.Enabled = false;
+
+                    ButtonDown.Enabled = true;
+                    CloseButton.Enabled = true;
+                    OpenButton.Enabled = true;
+                    insertElevatorLogs("Up", "Reached First Floor");
+
+                }
             
         }
 
-        private void timerdown_Tick(object sender, EventArgs e)
-        {
-            lift.Location = new Point(lift.Location.X, lift.Location.Y + 5);
-            timerdown.Enabled = true;
-            if (lift.Location.Y == 585)
-                timerdown.Enabled = false;
-        }
+
+
 
         private void buttondown_Click(object sender, EventArgs e)
         {
-            if (lift.Location.Y == 75 && First_Right_Door.Size.Width == 80 && First_Left_Door.Size.Width == 80 
+
+            if (lift.Location.Y == 75 && First_Right_Door.Size.Width == 80 && First_Left_Door.Size.Width == 80
                 && Ground_Right_Door.Size.Width == 80 && Ground_Left_Door.Size.Width == 80)
             {
-                timerdown.Enabled = true;
+                TimerDown.Enabled = true;
+
+                ButtonUp.Enabled = false;
+                CloseButton.Enabled = false;
+                OpenButton.Enabled = false;
+
+
             }
             else
             {
-                timerdown.Enabled = false;
+                TimerDown.Enabled = false;
             }
-        }   
 
+
+        }
+        private void timerdown_Tick(object sender, EventArgs e)
+        {
+            DisplayMain.Image = Properties.Resources.display0;
+            SmallDisplay1.Image = Properties.Resources.display0;
+            SmallDisplay2.Image = Properties.Resources.display0;
+            lift.Location = new Point(lift.Location.X, lift.Location.Y + 5);
+            TimerDown.Enabled = true;
+
+                if (lift.Location.Y == 585)
+                {
+                    TimerDown.Enabled = false;
+
+                    ButtonUp.Enabled = true;
+                    CloseButton.Enabled = true;
+                    OpenButton.Enabled = true;
+                    insertElevatorLogs("Down", "Reached Ground Floor");
+                    DisplayMain.Image = Properties.Resources.display0;
+                    SmallDisplay1.Image = Properties.Resources.display0;
+                    SmallDisplay2.Image = Properties.Resources.display0;
+            }
+
+            
+        }
+
+
+        private void OpenButton_Click(object sender, EventArgs e)
+        {
+            TimerOpen.Enabled = true;
+            ButtonUp.Enabled = false;
+            ButtonDown.Enabled = false;
+            CloseButton.Enabled = false;
+            
+
+        }
 
         private void timeropen_Tick(object sender, EventArgs e)
         {
+            
+
+
             if (lift.Location.Y == 75)
             {
                 First_Right_Door.Location = new Point(First_Right_Door.Location.X + 1, First_Right_Door.Location.Y);
                 First_Right_Door.Size = new Size(First_Right_Door.Size.Width - 1, First_Right_Door.Size.Height);
                 First_Left_Door.Size = new Size(First_Left_Door.Size.Width - 1, First_Left_Door.Size.Height);
 
-                timeropen.Enabled = true;
+                TimerOpen.Enabled = true;
+
 
                 if (First_Left_Door.Size.Width == 0)
                 {
-                    timeropen.Enabled = false;
+                    TimerOpen.Enabled = false;
+
+                    ButtonUp.Enabled = true;
+                    ButtonDown.Enabled = true;
+                    CloseButton.Enabled = true;
+                    insertElevatorLogs("Open", "Opening First Floor Elevator Door");
                 }
             }
+
             if (lift.Location.Y == 585)
             {
                 Ground_Right_Door.Location = new Point(Ground_Right_Door.Location.X + 1, Ground_Right_Door.Location.Y);
                 Ground_Right_Door.Size = new Size(Ground_Right_Door.Size.Width - 1, Ground_Right_Door.Size.Height);
                 Ground_Left_Door.Size = new Size(Ground_Left_Door.Size.Width - 1, Ground_Left_Door.Size.Height);
 
-                timeropen.Enabled = true;
+                TimerOpen.Enabled = true;
+
 
                 if (Ground_Left_Door.Size.Width == 0)
                 {
-                    timeropen.Enabled = false;
-                }
-            }
+                    TimerOpen.Enabled = false;
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            timeropen.Enabled = true;
-
-            if (lift.Location.Y == 585)
-            {
-                timeropen.Enabled = true;
-            }
-        }
-
-        private void timerclose_Tick(object sender, EventArgs e)
-        {
-            if (lift.Location.Y == 75 && First_Right_Door.Size.Width < 80 && First_Left_Door.Size.Width<80)
-            {
-                First_Right_Door.Location = new Point(First_Right_Door.Location.X - 1, First_Right_Door.Location.Y);
-                First_Right_Door.Size = new Size(First_Right_Door.Size.Width + 1, First_Right_Door.Size.Height);
-                First_Left_Door.Size = new Size(First_Left_Door.Size.Width + 1, First_Left_Door.Size.Height);
-
-
-
-                  if (First_Left_Door.Size.Width == 80)
-                  {
-                    timerclose.Enabled = false;
-                  }
-                               
-            }
-            
-
-            if (lift.Location.Y == 585 && Ground_Right_Door.Size.Width < 80 && Ground_Left_Door.Size.Width < 80)
-            {
-                Ground_Right_Door.Location = new Point(Ground_Right_Door.Location.X - 1, Ground_Right_Door.Location.Y);
-                Ground_Right_Door.Size = new Size(Ground_Right_Door.Size.Width + 1, Ground_Right_Door.Size.Height);
-                Ground_Left_Door.Size = new Size(Ground_Left_Door.Size.Width + 1, Ground_Left_Door.Size.Height);
-
-                timerclose.Enabled = true;
-
-                if (Ground_Left_Door.Size.Width == 80)
-                {
-                   timerclose.Enabled = false;
+                    ButtonUp.Enabled = true;
+                    ButtonDown.Enabled = true;
+                    CloseButton.Enabled = true;
+                    insertElevatorLogs("Open", "Opening Ground Floor Elevator Door");
                 }
             }
 
@@ -142,12 +173,106 @@ namespace lift
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            timerclose.Enabled = true;
+            TimerClose.Enabled = true;
+            ButtonUp.Enabled = false;
+            ButtonDown.Enabled = false;
+            OpenButton.Enabled = false;
+        }
 
-            if (lift.Location.Y == 585)
+        private void timerclose_Tick(object sender, EventArgs e)
+        {
+            
+
+            if (lift.Location.Y == 75 && First_Right_Door.Size.Width < 80 && First_Left_Door.Size.Width < 80)
             {
-                timerclose.Enabled = true;
+                First_Right_Door.Location = new Point(First_Right_Door.Location.X - 1, First_Right_Door.Location.Y);
+                First_Right_Door.Size = new Size(First_Right_Door.Size.Width + 1, First_Right_Door.Size.Height);
+                First_Left_Door.Size = new Size(First_Left_Door.Size.Width + 1, First_Left_Door.Size.Height);
+
+                TimerClose.Enabled = true;
+
+
+                if (First_Left_Door.Size.Width == 80)
+                {
+                    TimerClose.Enabled = false;
+
+
+                    ButtonUp.Enabled = true;
+                    ButtonDown.Enabled = true;
+                    OpenButton.Enabled = true;
+                    insertElevatorLogs("Close", "Closing First Floor Elevator Door");
+                }
+
             }
+
+
+            if (lift.Location.Y == 585 && Ground_Right_Door.Size.Width < 80 && Ground_Left_Door.Size.Width < 80)
+            {
+                Ground_Right_Door.Location = new Point(Ground_Right_Door.Location.X - 1, Ground_Right_Door.Location.Y);
+                Ground_Right_Door.Size = new Size(Ground_Right_Door.Size.Width + 1, Ground_Right_Door.Size.Height);
+                Ground_Left_Door.Size = new Size(Ground_Left_Door.Size.Width + 1, Ground_Left_Door.Size.Height);
+
+                TimerClose.Enabled = true;
+
+                if (Ground_Left_Door.Size.Width == 80)
+                {
+                    TimerClose.Enabled = false;
+
+
+                    ButtonUp.Enabled = true;
+                    ButtonDown.Enabled = true;
+                    OpenButton.Enabled = true;
+                    insertElevatorLogs("Close", "Closing Ground Floor Elevator Door");
+                }
+            }
+
+
+        }
+
+
+
+        public void insertElevatorLogs(String btn, String btnAction)
+        {
+            conn.Open();
+            sql = @"Insert into lift (lift_button, lift_details, lift_date, lift_time) values (@btn, @details, @lift_date, @lift_time)";
+            cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@btn", btn);
+            cmd.Parameters.AddWithValue("@details", btnAction);
+            cmd.Parameters.AddWithValue("@lift_date", DateTime.Now.ToString("MM/dd/yyyy"));
+            cmd.Parameters.AddWithValue("@lift_time", DateTime.Now.ToString("hh:mm:ss"));
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
+        public void select_all()
+        {
+            try
+            {
+                conn.Open();
+                sql = "select * from lift";
+                cmd = new NpgsqlCommand(sql, conn);
+                dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                conn.Close();
+                databaseTable.DataSource = null;
+                databaseTable.DataSource = dt;
+
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+            //FUNCTION SELECT(){
+            //sql=select * from lift;
+            //}
+        }
+
+        private void log_Click(object sender, EventArgs e)
+        {
+            select_all();
         }
 
     }

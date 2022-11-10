@@ -16,3 +16,5 @@ C:\Users\Sudatta\source\ass1 oop\lift\lift\obj\Debug\net6.0-windows\lift.pdb
 C:\Users\Sudatta\source\ass1 oop\lift\lift\obj\Debug\net6.0-windows\lift.genruntimeconfig.cache
 C:\Users\Sudatta\source\ass1 oop\lift\lift\obj\Debug\net6.0-windows\ref\lift.dll
 C:\Users\Sudatta\source\ass1 oop\lift\lift\obj\Debug\net6.0-windows\lift.Properties.Resources.resources
+C:\Users\Sudatta\source\ass1 oop\lift\lift\bin\Debug\net6.0-windows\Npgsql.dll
+C:\Users\Sudatta\source\ass1 oop\lift\lift\obj\Debug\net6.0-windows\lift.csproj.CopyComplete
