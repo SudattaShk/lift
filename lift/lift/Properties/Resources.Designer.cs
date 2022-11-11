@@ -123,6 +123,16 @@ namespace lift.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap inside_door {
+            get {
+                object obj = ResourceManager.GetObject("inside_door", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap inside_lift {
             get {
                 object obj = ResourceManager.GetObject("inside_lift", resourceCulture);
@@ -143,9 +153,9 @@ namespace lift.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open {
+        internal static System.Drawing.Bitmap lit_call_down {
             get {
-                object obj = ResourceManager.GetObject("open", resourceCulture);
+                object obj = ResourceManager.GetObject("lit_call_down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +163,29 @@ namespace lift.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open_door {
+        internal static System.Drawing.Bitmap lit_call_up {
             get {
-                object obj = ResourceManager.GetObject("open_door", resourceCulture);
+                object obj = ResourceManager.GetObject("lit_call_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap metallic_textured_background {
+            get {
+                object obj = ResourceManager.GetObject("metallic_textured_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap open {
+            get {
+                object obj = ResourceManager.GetObject("open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,6 +206,26 @@ namespace lift.Properties {
         internal static System.Drawing.Bitmap right_door {
             get {
                 object obj = ResourceManager.GetObject("right_door", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unlitlit_call_down {
+            get {
+                object obj = ResourceManager.GetObject("unlitlit_call_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unlitlit_call_up {
+            get {
+                object obj = ResourceManager.GetObject("unlitlit_call_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

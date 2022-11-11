@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lift = new System.Windows.Forms.PictureBox();
-            this.ButtonUp = new System.Windows.Forms.Button();
-            this.ButtonDown = new System.Windows.Forms.Button();
+            this.UpButton = new System.Windows.Forms.Button();
+            this.DownButton = new System.Windows.Forms.Button();
             this.TimerUp = new System.Windows.Forms.Timer(this.components);
             this.TimerDown = new System.Windows.Forms.Timer(this.components);
             this.First_Right_Door = new System.Windows.Forms.PictureBox();
@@ -48,8 +48,7 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.TimerOpen = new System.Windows.Forms.Timer(this.components);
             this.TimerClose = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.RequestGroundButton = new System.Windows.Forms.Button();
             this.databaseTable = new System.Windows.Forms.DataGridView();
             this.log = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,6 +57,8 @@
             this.DisplayMain = new System.Windows.Forms.PictureBox();
             this.SmallDisplay2 = new System.Windows.Forms.PictureBox();
             this.SmallDisplay1 = new System.Windows.Forms.PictureBox();
+            this.RequestFirst = new System.Windows.Forms.Button();
+            this.TimerGroundRequest = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.lift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.First_Right_Door)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.First_Left_Door)).BeginInit();
@@ -78,32 +79,32 @@
             // lift
             // 
             this.lift.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lift.Image = ((System.Drawing.Image)(resources.GetObject("lift.Image")));
+            this.lift.Image = global::lift.Properties.Resources.inside_lift;
             this.lift.Location = new System.Drawing.Point(272, 75);
             this.lift.Name = "lift";
             this.lift.Size = new System.Drawing.Size(174, 351);
             this.lift.TabIndex = 0;
             this.lift.TabStop = false;
             // 
-            // ButtonUp
+            // UpButton
             // 
-            this.ButtonUp.Image = ((System.Drawing.Image)(resources.GetObject("ButtonUp.Image")));
-            this.ButtonUp.Location = new System.Drawing.Point(824, 463);
-            this.ButtonUp.Name = "ButtonUp";
-            this.ButtonUp.Size = new System.Drawing.Size(106, 106);
-            this.ButtonUp.TabIndex = 1;
-            this.ButtonUp.UseVisualStyleBackColor = true;
-            this.ButtonUp.Click += new System.EventHandler(this.buttonup_Click);
+            this.UpButton.Image = ((System.Drawing.Image)(resources.GetObject("UpButton.Image")));
+            this.UpButton.Location = new System.Drawing.Point(824, 463);
+            this.UpButton.Name = "UpButton";
+            this.UpButton.Size = new System.Drawing.Size(106, 106);
+            this.UpButton.TabIndex = 1;
+            this.UpButton.UseVisualStyleBackColor = true;
+            this.UpButton.Click += new System.EventHandler(this.buttonup_Click);
             // 
-            // ButtonDown
+            // DownButton
             // 
-            this.ButtonDown.Image = ((System.Drawing.Image)(resources.GetObject("ButtonDown.Image")));
-            this.ButtonDown.Location = new System.Drawing.Point(824, 621);
-            this.ButtonDown.Name = "ButtonDown";
-            this.ButtonDown.Size = new System.Drawing.Size(106, 106);
-            this.ButtonDown.TabIndex = 2;
-            this.ButtonDown.UseVisualStyleBackColor = true;
-            this.ButtonDown.Click += new System.EventHandler(this.buttondown_Click);
+            this.DownButton.Image = ((System.Drawing.Image)(resources.GetObject("DownButton.Image")));
+            this.DownButton.Location = new System.Drawing.Point(824, 621);
+            this.DownButton.Name = "DownButton";
+            this.DownButton.Size = new System.Drawing.Size(106, 106);
+            this.DownButton.TabIndex = 2;
+            this.DownButton.UseVisualStyleBackColor = true;
+            this.DownButton.Click += new System.EventHandler(this.buttondown_Click);
             // 
             // TimerUp
             // 
@@ -118,8 +119,8 @@
             // First_Right_Door
             // 
             this.First_Right_Door.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.First_Right_Door.Image = ((System.Drawing.Image)(resources.GetObject("First_Right_Door.Image")));
-            this.First_Right_Door.Location = new System.Drawing.Point(357, 73);
+            this.First_Right_Door.Image = global::lift.Properties.Resources.right_door;
+            this.First_Right_Door.Location = new System.Drawing.Point(357, 72);
             this.First_Right_Door.Name = "First_Right_Door";
             this.First_Right_Door.Size = new System.Drawing.Size(80, 420);
             this.First_Right_Door.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -129,8 +130,8 @@
             // First_Left_Door
             // 
             this.First_Left_Door.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.First_Left_Door.Image = ((System.Drawing.Image)(resources.GetObject("First_Left_Door.Image")));
-            this.First_Left_Door.Location = new System.Drawing.Point(280, 73);
+            this.First_Left_Door.Image = global::lift.Properties.Resources.left_door;
+            this.First_Left_Door.Location = new System.Drawing.Point(280, 72);
             this.First_Left_Door.Name = "First_Left_Door";
             this.First_Left_Door.Size = new System.Drawing.Size(80, 420);
             this.First_Left_Door.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -149,8 +150,8 @@
             // 
             // first_frame
             // 
-            this.first_frame.Image = ((System.Drawing.Image)(resources.GetObject("first_frame.Image")));
-            this.first_frame.Location = new System.Drawing.Point(234, 12);
+            this.first_frame.Image = global::lift.Properties.Resources.closed_door_frame;
+            this.first_frame.Location = new System.Drawing.Point(234, 11);
             this.first_frame.Name = "first_frame";
             this.first_frame.Size = new System.Drawing.Size(250, 481);
             this.first_frame.TabIndex = 8;
@@ -168,7 +169,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Image = global::lift.Properties.Resources.closed_door_frame;
             this.pictureBox4.Location = new System.Drawing.Point(234, 540);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(250, 481);
@@ -179,8 +180,8 @@
             // 
             this.Ground_Right_Door.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Ground_Right_Door.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Ground_Right_Door.Image = ((System.Drawing.Image)(resources.GetObject("Ground_Right_Door.Image")));
-            this.Ground_Right_Door.Location = new System.Drawing.Point(357, 601);
+            this.Ground_Right_Door.Image = global::lift.Properties.Resources.right_door;
+            this.Ground_Right_Door.Location = new System.Drawing.Point(357, 602);
             this.Ground_Right_Door.Name = "Ground_Right_Door";
             this.Ground_Right_Door.Size = new System.Drawing.Size(80, 420);
             this.Ground_Right_Door.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -190,8 +191,8 @@
             // Ground_Left_Door
             // 
             this.Ground_Left_Door.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Ground_Left_Door.Image = ((System.Drawing.Image)(resources.GetObject("Ground_Left_Door.Image")));
-            this.Ground_Left_Door.Location = new System.Drawing.Point(281, 601);
+            this.Ground_Left_Door.Image = global::lift.Properties.Resources.left_door;
+            this.Ground_Left_Door.Location = new System.Drawing.Point(280, 602);
             this.Ground_Left_Door.Name = "Ground_Left_Door";
             this.Ground_Left_Door.Size = new System.Drawing.Size(80, 420);
             this.Ground_Left_Door.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -200,8 +201,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(280, 72);
+            this.pictureBox1.Image = global::lift.Properties.Resources.inside_door;
+            this.pictureBox1.Location = new System.Drawing.Point(280, 71);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(156, 421);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -210,8 +211,8 @@
             // 
             // OpenButton
             // 
-            this.OpenButton.Image = ((System.Drawing.Image)(resources.GetObject("OpenButton.Image")));
-            this.OpenButton.Location = new System.Drawing.Point(728, 794);
+            this.OpenButton.Image = global::lift.Properties.Resources.open;
+            this.OpenButton.Location = new System.Drawing.Point(721, 794);
             this.OpenButton.Name = "OpenButton";
             this.OpenButton.Size = new System.Drawing.Size(106, 106);
             this.OpenButton.TabIndex = 18;
@@ -220,8 +221,8 @@
             // 
             // CloseButton
             // 
-            this.CloseButton.Image = ((System.Drawing.Image)(resources.GetObject("CloseButton.Image")));
-            this.CloseButton.Location = new System.Drawing.Point(942, 794);
+            this.CloseButton.Image = global::lift.Properties.Resources.close;
+            this.CloseButton.Location = new System.Drawing.Point(923, 794);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(106, 106);
             this.CloseButton.TabIndex = 19;
@@ -238,23 +239,16 @@
             this.TimerClose.Interval = 1;
             this.TimerClose.Tick += new System.EventHandler(this.timerclose_Tick);
             // 
-            // button1
+            // RequestGroundButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(490, 733);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 106);
-            this.button1.TabIndex = 20;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(490, 211);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 106);
-            this.button2.TabIndex = 21;
-            this.button2.UseVisualStyleBackColor = true;
+            this.RequestGroundButton.BackgroundImage = global::lift.Properties.Resources.unlitlit_call_down;
+            this.RequestGroundButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RequestGroundButton.Location = new System.Drawing.Point(490, 752);
+            this.RequestGroundButton.Name = "RequestGroundButton";
+            this.RequestGroundButton.Size = new System.Drawing.Size(60, 60);
+            this.RequestGroundButton.TabIndex = 20;
+            this.RequestGroundButton.UseVisualStyleBackColor = true;
+
             // 
             // databaseTable
             // 
@@ -286,7 +280,7 @@
             this.label1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(490, 651);
+            this.label1.Location = new System.Drawing.Point(490, 658);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 27);
             this.label1.TabIndex = 25;
@@ -306,7 +300,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Image = global::lift.Properties.Resources.metallic_textured_background;
             this.pictureBox2.Location = new System.Drawing.Point(699, 128);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(354, 786);
@@ -317,7 +311,7 @@
             // DisplayMain
             // 
             this.DisplayMain.Image = global::lift.Properties.Resources.display1;
-            this.DisplayMain.Location = new System.Drawing.Point(723, 175);
+            this.DisplayMain.Location = new System.Drawing.Point(721, 177);
             this.DisplayMain.Name = "DisplayMain";
             this.DisplayMain.Size = new System.Drawing.Size(308, 231);
             this.DisplayMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -327,9 +321,9 @@
             // SmallDisplay2
             // 
             this.SmallDisplay2.Image = global::lift.Properties.Resources.display1;
-            this.SmallDisplay2.Location = new System.Drawing.Point(490, 680);
+            this.SmallDisplay2.Location = new System.Drawing.Point(490, 585);
             this.SmallDisplay2.Name = "SmallDisplay2";
-            this.SmallDisplay2.Size = new System.Drawing.Size(69, 47);
+            this.SmallDisplay2.Size = new System.Drawing.Size(106, 73);
             this.SmallDisplay2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SmallDisplay2.TabIndex = 29;
             this.SmallDisplay2.TabStop = false;
@@ -337,35 +331,49 @@
             // SmallDisplay1
             // 
             this.SmallDisplay1.Image = global::lift.Properties.Resources.display1;
-            this.SmallDisplay1.Location = new System.Drawing.Point(490, 158);
+            this.SmallDisplay1.Location = new System.Drawing.Point(490, 52);
             this.SmallDisplay1.Name = "SmallDisplay1";
-            this.SmallDisplay1.Size = new System.Drawing.Size(69, 47);
+            this.SmallDisplay1.Size = new System.Drawing.Size(106, 73);
             this.SmallDisplay1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SmallDisplay1.TabIndex = 30;
             this.SmallDisplay1.TabStop = false;
+            // 
+            // RequestFirst
+            // 
+            this.RequestFirst.BackgroundImage = global::lift.Properties.Resources.unlitlit_call_up;
+            this.RequestFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RequestFirst.Location = new System.Drawing.Point(490, 226);
+            this.RequestFirst.Name = "RequestFirst";
+            this.RequestFirst.Size = new System.Drawing.Size(60, 60);
+            this.RequestFirst.TabIndex = 21;
+            this.RequestFirst.UseVisualStyleBackColor = true;
+            // 
+            // TimerGroundRequest
+            // 
+            this.TimerGroundRequest.Interval = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::lift.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
             this.Controls.Add(this.SmallDisplay1);
             this.Controls.Add(this.SmallDisplay2);
             this.Controls.Add(this.DisplayMain);
-            this.Controls.Add(this.ButtonDown);
+            this.Controls.Add(this.DownButton);
             this.Controls.Add(this.CloseButton);
-            this.Controls.Add(this.ButtonUp);
+            this.Controls.Add(this.UpButton);
             this.Controls.Add(this.OpenButton);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.log);
             this.Controls.Add(this.databaseTable);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.RequestFirst);
+            this.Controls.Add(this.RequestGroundButton);
             this.Controls.Add(this.First_Left_Door);
             this.Controls.Add(this.First_Right_Door);
             this.Controls.Add(this.pictureBox1);
@@ -402,8 +410,8 @@
         #endregion
 
         private PictureBox lift;
-        private Button ButtonUp;
-        private Button ButtonDown;
+        private Button UpButton;
+        private Button DownButton;
         private System.Windows.Forms.Timer TimerUp;
         private System.Windows.Forms.Timer TimerDown;
         private PictureBox First_Right_Door;
@@ -419,8 +427,7 @@
         private Button CloseButton;
         private System.Windows.Forms.Timer TimerOpen;
         private System.Windows.Forms.Timer TimerClose;
-        private Button button1;
-        private Button button2;
+        private Button RequestGroundButton;
         private DataGridView databaseTable;
         private Button log;
         private Label label1;
@@ -429,5 +436,7 @@
         private PictureBox DisplayMain;
         private PictureBox SmallDisplay2;
         private PictureBox SmallDisplay1;
+        private Button RequestFirst;
+        private System.Windows.Forms.Timer TimerGroundRequest;
     }
 }

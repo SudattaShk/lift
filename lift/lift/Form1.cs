@@ -28,17 +28,17 @@ namespace lift
                 && Ground_Right_Door.Size.Width == 80 && Ground_Left_Door.Size.Width == 80)
             {
                 TimerUp.Enabled = true;
-                ButtonDown.Enabled = false;
+
+                UpButton.Enabled = false;
                 CloseButton.Enabled = false;
                 OpenButton.Enabled = false;
+                DownButton.Enabled = false;
 
             }
             else
             {
                 TimerUp.Enabled = false;
-            }
-
-            
+            }                      
 
         }
         private void TimerUp_Tick(object sender, EventArgs e)
@@ -49,23 +49,18 @@ namespace lift
             lift.Location = new Point(lift.Location.X, lift.Location.Y - 5);
             TimerUp.Enabled = true;
 
+            if (lift.Location.Y == 75)
+            {
+                TimerUp.Enabled = false;
+                TimerOpen.Enabled = true;
+                UpButton.Enabled = true;
+                CloseButton.Enabled = true;
+                OpenButton.Enabled = true;
+                DownButton.Enabled = true;
+                insertElevatorLogs("Up", "Reached First Floor");
 
-
-                if (lift.Location.Y == 75)
-                {
-                    TimerUp.Enabled = false;
-
-                    ButtonDown.Enabled = true;
-                    CloseButton.Enabled = true;
-                    OpenButton.Enabled = true;
-                    insertElevatorLogs("Up", "Reached First Floor");
-
-                }
-            
+            }  
         }
-
-
-
 
         private void buttondown_Click(object sender, EventArgs e)
         {
@@ -74,19 +69,16 @@ namespace lift
                 && Ground_Right_Door.Size.Width == 80 && Ground_Left_Door.Size.Width == 80)
             {
                 TimerDown.Enabled = true;
-
-                ButtonUp.Enabled = false;
+                
+                UpButton.Enabled = false;
                 CloseButton.Enabled = false;
                 OpenButton.Enabled = false;
-
-
+                DownButton.Enabled= false;
             }
             else
             {
                 TimerDown.Enabled = false;
             }
-
-
         }
         private void timerdown_Tick(object sender, EventArgs e)
         {
@@ -96,31 +88,26 @@ namespace lift
             lift.Location = new Point(lift.Location.X, lift.Location.Y + 5);
             TimerDown.Enabled = true;
 
-                if (lift.Location.Y == 585)
-                {
-                    TimerDown.Enabled = false;
+            if (lift.Location.Y == 585)
+            {
+                TimerOpen.Enabled = true;
+                TimerDown.Enabled = false;
 
-                    ButtonUp.Enabled = true;
-                    CloseButton.Enabled = true;
-                    OpenButton.Enabled = true;
-                    insertElevatorLogs("Down", "Reached Ground Floor");
-                    DisplayMain.Image = Properties.Resources.display0;
-                    SmallDisplay1.Image = Properties.Resources.display0;
-                    SmallDisplay2.Image = Properties.Resources.display0;
+                UpButton.Enabled = true;
+                CloseButton.Enabled = true;
+                OpenButton.Enabled = true;
+                DownButton.Enabled = true;
+                insertElevatorLogs("Down", "Reached Ground Floor");
+                DisplayMain.Image = Properties.Resources.display0;
+                SmallDisplay1.Image = Properties.Resources.display0;
+                SmallDisplay2.Image = Properties.Resources.display0;
             }
 
-            
         }
-
 
         private void OpenButton_Click(object sender, EventArgs e)
         {
             TimerOpen.Enabled = true;
-            ButtonUp.Enabled = false;
-            ButtonDown.Enabled = false;
-            CloseButton.Enabled = false;
-            
-
         }
 
         private void timeropen_Tick(object sender, EventArgs e)
@@ -135,14 +122,18 @@ namespace lift
                 First_Left_Door.Size = new Size(First_Left_Door.Size.Width - 1, First_Left_Door.Size.Height);
 
                 TimerOpen.Enabled = true;
+            
+                UpButton.Enabled = false;
+                DownButton.Enabled = false;
+                CloseButton.Enabled = false;
 
 
                 if (First_Left_Door.Size.Width == 0)
                 {
                     TimerOpen.Enabled = false;
 
-                    ButtonUp.Enabled = true;
-                    ButtonDown.Enabled = true;
+                    UpButton.Enabled = true;
+                    DownButton.Enabled = true;
                     CloseButton.Enabled = true;
                     insertElevatorLogs("Open", "Opening First Floor Elevator Door");
                 }
@@ -156,13 +147,17 @@ namespace lift
 
                 TimerOpen.Enabled = true;
 
+                UpButton.Enabled = false;
+                DownButton.Enabled = false;
+                CloseButton.Enabled = false;
+
 
                 if (Ground_Left_Door.Size.Width == 0)
                 {
                     TimerOpen.Enabled = false;
 
-                    ButtonUp.Enabled = true;
-                    ButtonDown.Enabled = true;
+                    UpButton.Enabled = true;
+                    DownButton.Enabled = true;
                     CloseButton.Enabled = true;
                     insertElevatorLogs("Open", "Opening Ground Floor Elevator Door");
                 }
@@ -174,9 +169,7 @@ namespace lift
         private void CloseButton_Click(object sender, EventArgs e)
         {
             TimerClose.Enabled = true;
-            ButtonUp.Enabled = false;
-            ButtonDown.Enabled = false;
-            OpenButton.Enabled = false;
+
         }
 
         private void timerclose_Tick(object sender, EventArgs e)
@@ -191,14 +184,18 @@ namespace lift
 
                 TimerClose.Enabled = true;
 
+                UpButton.Enabled = false;
+                DownButton.Enabled = false;
+                OpenButton.Enabled = false;
+
 
                 if (First_Left_Door.Size.Width == 80)
                 {
                     TimerClose.Enabled = false;
 
 
-                    ButtonUp.Enabled = true;
-                    ButtonDown.Enabled = true;
+                    UpButton.Enabled = true;
+                    DownButton.Enabled = true;
                     OpenButton.Enabled = true;
                     insertElevatorLogs("Close", "Closing First Floor Elevator Door");
                 }
@@ -213,14 +210,17 @@ namespace lift
                 Ground_Left_Door.Size = new Size(Ground_Left_Door.Size.Width + 1, Ground_Left_Door.Size.Height);
 
                 TimerClose.Enabled = true;
+                UpButton.Enabled = false;
+                DownButton.Enabled = false;
+                OpenButton.Enabled = false;
 
                 if (Ground_Left_Door.Size.Width == 80)
                 {
                     TimerClose.Enabled = false;
 
 
-                    ButtonUp.Enabled = true;
-                    ButtonDown.Enabled = true;
+                    UpButton.Enabled = true;
+                    DownButton.Enabled = true;
                     OpenButton.Enabled = true;
                     insertElevatorLogs("Close", "Closing Ground Floor Elevator Door");
                 }
@@ -275,5 +275,7 @@ namespace lift
             select_all();
         }
 
+    
+       
     }
 }
